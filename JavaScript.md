@@ -1,16 +1,10 @@
 # JavaScript
 
-
-
-
-
 ### JavaScript의 필요성
 
 - 브라우저를 조작할 수 있는 유일한 언어
 
 - 브라우저 화면을 동적으로 만들기 위함
-
-
 
 ### DOM (Document Object Model)
 
@@ -149,5 +143,193 @@
       - 해당 요소의 지정된 값(문자열) 반환
       
       - 인자 (attributeName)는 값을 얻고자 하는 속성의 이름
+
+
+
+### 변수와 식별자
+
+- 식별자는 변수를 구분할 수 있는 변수명을 말함
+
+- 식별자는 반드시 문자, 달러$, 또는 밑줄_로 시작
+
+- 대소문자를 구분하며, 클래스명 외에는 모두 소문자로 시작
+
+- 예약어 사용 불가능 ex) for, if, function 등
+
+- 선언 : 변수를 생성하는 행위 또는 시점
+
+- 할당 : 선언된 변수에 값을 저장하는 행위 또는 시점
+
+- 초기화: 선언된 변수에 처음으로 값을 저장하는 행위 또는 시점
+
+```javascript
+let foo //선언
+console.log(foo) //undefined
+foo = 11 //할당
+console.log(foo) //11
+
+let bar = 0 //선언+할당 
+console.log(bar) //0
+```
+
+- **let, const**
+  
+  - let - 재할당 가능,  재선언 불가능
+    
+    ```javascript
+    let number = 10 //선언 및 초기값 할당
+    number = 10     //재할당
+    console.log(number) //10
+    
+    ```
+    
+    ```javascript
+    let number = 10
+    let number = 50  >재선언 불가능 >에
+    ```
+  
+  - const - 재할당 불가능, 재선언 불가능
+    
+    ```javascript
+    const number = 10 //1.선언 및 초기값 할당number = 10 
+    number = 10       //2.재할당 불가능 에러
+    
+    ```
+    
+    ```javascript
+    const number = 10
+    const number = 50
+    
+    >재선언 불가능 > 에러 
+    ```
+  
+  - 블록 스코프
+    
+    - if, for, 함수 등의 중괄호 내부를 가리킴
+    
+    - 블록 스코프를 가지는 변수는 블록 바깥에서 접근 불가능
       
-      - 
+      ```javascript
+      let x = 1
+      if (x===1){
+          let x = 2
+          console.log(x)  //2
+      }
+      console.log(x) //1
+      ```
+
+- **var**
+  
+  - var로 선언한 변수는 재선언 및 재할당 모두 가능
+  
+  - ES6 이전에 변수를 선언할 때 사용되던 키워드
+  
+  - 호이스팅 되는 특성으로 인해 예기치 못한 문제 발생 가능
+    
+    - 따라서 ES6 이후부터는 var 대신 const와 let을 사용하는 것을 권장
+  
+  - 함수 스코프
+    
+    - ```javascript
+      var number = 10
+      var number = 50 //재할당
+      console.log(number) //50
+      ```
+  
+  - **호이스팅**(hoisting)
+    
+    - 변수를 선언 이전에 참조할 수 있는 현상
+    
+    - 변수 선언 이전의 위치에서 접근 시 undefined를 반환
+    
+    - 자바스크립트는 모든 선언을 호이스팅한다.
+    
+    - 즉 var, let, const 모두 호이스팅이 발생하지만, var는 선언과 초기화가 동시에 발생하여 일시적 사각지대가 존재하지 않는다.
+      
+      ```javascript
+      console.log(username) //undefined
+      var username = '홍길동'
+      
+      console.log(email) //Uncaught ReferenceError
+      let email = 'gildong@gmail.com'
+      
+      
+      console.log(age) //Uncaught ReferenceError
+      const age = 50
+      
+      
+      ```
+
+- ***let, const, var 비교***
+
+| 키워드   | 재선언 | 재할당 | 스코프   | 비고       |
+| ----- | --- | --- | ----- | -------- |
+| let   | X   | O   | 블록스코프 | ES6부터 도입 |
+| const | X   | X   | 블록스코프 | ES6부터 도입 |
+| var   | O   | O   | 함수스코프 | 사용x      |
+
+
+
+
+
+### 데이터 타입
+
+- 자바스크립트의 모든 값은 특정한 데이터 타입을 가짐
+
+- 크게 원시 타입과 참조 타입으로 분류됨 (Primitive type / Reference type)
+
+
+
+- #### 원시타입
+  
+  - 객체가 아닌 기본 타입
+  
+  - 변수에 해당 타입의 값이 담김
+  
+  - 다른 변수에 복사할 때 실제 값이 복사됨
+    
+    ```javascript
+    let message = '안녕하세요' //1.message 선언 및 할당
+    
+    
+    let greeting = message //2. greeting 에 message 복사
+    console.log(greeting) //3. '안녕하세요'출력
+    
+    
+    message = 'Hello' //4.재할당
+    console.log(greeting) //5.안녕하세요출력
+    
+    //즉 원시타입은 실제 해당 타입의 값을 변수에 저장한다.
+    ```
+
+- #### 참조타입
+  
+  - 객체 타입의 자료형
+  
+  - 변수에 해당 객체의 참조 값이 담김
+  
+  - 다른 변수에 복사할 때 참조 값이 복사됨
+    
+    ```javascript
+    const msg = ['안녕하세여'] //1. msg선언 및 할당
+    const greeting = message //2.복사
+    console.log(greeting) //3.['안녕하세여']출력
+    
+    msg[0] = 'hello world' //4.재할당
+    console.log(greeting) //5.['Hello world']출력
+    //즉, 참조 타입은 해당 객체를 참조할 수 있는 참조 값을 저장한다.
+    ```
+
+- #### 숫자 타입
+  
+  - 정수, 실수 구분 없는 하나의 숫자 타입
+  
+  - 부동소수점 형식을 따름
+  
+  - NaN (Not-A-Number)
+    
+    - 계산 불가능한 경우 반환되는 값
+    
+    - ex) 'Angel'/1004
+      
+      const a = 13 //양의 정수
